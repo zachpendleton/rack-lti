@@ -90,6 +90,18 @@ class MiddlewareTest < Minitest::Test
     end
   end
 
+  def test_call_returns_403_on_furture_timestamp
+    @lti_app.config.nonce_validator = true
+    @lti_app.config.time_limit      = 30
+
+    @lti_app.stub(:valid_request?, true) do
+      env      = Rack::MockRequest.env_for('/lti/launch',
+                                           oauth_timestamp: Time.now + 2)
+      response = @lti_app.call(env)
+      assert_equal 403, response[0]
+    end
+  end
+
   def test_call_stores_launch_params_in_the_session
     @lti_app.stub(:valid_request?, true) do
       env = Rack::MockRequest.env_for('/lti/launch', method: 'post',
