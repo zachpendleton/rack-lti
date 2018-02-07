@@ -80,7 +80,9 @@ module Rack::LTI
       if @config.time_limit.nil?
         true
       else
-        (Time.now.to_i - @config.time_limit) <= timestamp
+        cur_time = Time.now.to_i
+        # reject a furture timestamp
+        timestamp <= cur_time && (cur_time - @config.time_limit) <= timestamp
       end
     end
   end
