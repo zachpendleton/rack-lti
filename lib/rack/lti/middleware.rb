@@ -7,7 +7,7 @@ module Rack::LTI
     attr_reader :app, :config
 
     def initialize(app, options = {}, &block)
-      @app    = app 
+      @app    = app
       @config = Config.new(options, &block)
     end
 

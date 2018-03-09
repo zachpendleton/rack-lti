@@ -27,7 +27,7 @@ class MiddlewareTest < Minitest::Test
 	def test_routes_returns_the_recognized_routes
 		known_routes = { @lti_app.config.config_path => :config_action,
 			@lti_app.config.launch_path => :launch_action }
-		assert_equal known_routes, @lti_app.routes	
+		assert_equal known_routes, @lti_app.routes
 	end
 
 	def test_call_returns_a_valid_rack_response
